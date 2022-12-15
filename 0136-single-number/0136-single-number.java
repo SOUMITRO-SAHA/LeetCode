@@ -1,15 +1,9 @@
 import java.util.*;
 import java.util.Hashtable;
 
-/*
- * @lc app=leetcode id=136 lang=java
- *
- * [136] Single Number
- */
-
-// @lc code=start
 class Solution {
     public int singleNumber(int[] nums) {
+        // Declearing a HashTable:
         Hashtable<Integer, Integer> hash = new Hashtable<>();
 
         // Taking all Array elements into the HashTable:
@@ -32,4 +26,4 @@ class Solution {
         return -1;
     }
 }
-// @lc code=end
+
