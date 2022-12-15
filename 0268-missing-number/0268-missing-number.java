@@ -1,22 +1,30 @@
-import java.util.HashMap;
+// O(n * log(n))
+import java.util.Arrays;
+
 class Solution {
     public int missingNumber(int[] nums) {
-        HashMap<Integer, Integer> map = new HashMap<>();
+        // Sort the array of numbers
+        // Time complexity: O(n * log(n))
+        Arrays.sort(nums);
 
-        // Taking Values to the HashMap
-        for (int num : nums) {
-            if (map.containsKey(num)) {
-                map.put(num, map.get(num) + 1);
-            } else {
-                map.put(num, 1);
+        // Initialize the expected number to 0
+        int expected = 0;
+
+        // Iterate over the sorted array of numbers
+        // Time complexity: O(n)
+        for (int i = 0; i < nums.length; i++) {
+            // Check if the current number is not equal to the expected number
+            if (nums[i] != expected) {
+                // If it is not, return the expected number
+                return expected;
             }
+
+            // Increment the expected number
+            expected++;
         }
 
-        // Traversing the HashMap to check for the missing number
-        for (int i = 0; i <= nums.length; i++) {
-            if (!map.containsKey(i))
-                return i;
-        }
-        return -1;
+        // Return the expected number, since it must be the missing number
+        // if we reached this point in the code
+        return expected;
     }
 }
