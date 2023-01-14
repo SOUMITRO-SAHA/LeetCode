@@ -1,35 +1,30 @@
 class Solution {
     public boolean rotateString(String s, String goal) {
-        // Edge Case:
-        if(s.length() != goal.length())
-        return false;
+        int n = s.length();
         
-        int targetIdx = 0;
-        // Finding the index of char in s 
-        for(int i=0; i<s.length(); i++){
-            // Assigning the s to Sb:
+        for(int i=0; i<n; i++){
             StringBuilder sb = new StringBuilder(s);
-            if(s.charAt(i) == goal.charAt(0)){
+            int targetIdx = 0;
+            
+            if(goal.charAt(0) == sb.charAt(i)){
                 targetIdx = i;
-
-                // Each time when the Char find :
-                // Now finding the Sub-String:
-                String firstHalfStr = s.substring(0,targetIdx);
                 
-                // Deleting the First Part till targetIdx
-                sb.delete(0,targetIdx);
+                // Sub string
+                String subStr = s.substring(0,targetIdx);
                 
-                // Appending the substring to the sb:
-                sb.append(firstHalfStr);
+                // Delete the initial part:
+                sb.delete(0, targetIdx);
                 
-                // Checking for the match
-                if(goal.equals(sb.toString())){
+                //Appending
+                sb.append(subStr);
+                
+                // Checking for the match:
+                if(goal.equals(sb.toString()))
                     return true;
-                }
             }
+            
         }
         
-        // If not matched then;
         return false;
     }
 }
