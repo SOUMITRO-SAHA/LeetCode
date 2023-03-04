@@ -10,89 +10,42 @@
  */
 class Solution {
     public boolean isPalindrome(ListNode head) {
-        // Two Cases:
-        // Odd Length Case:
-        // Even Length Case:
-        
-        // Edge Case:
-        if(head.next == null){
+        if (head == null || head.next == null) {
             return true;
         }
-        
-        // Getting the Length of the LL:
-        int len = getLength(head);
-        
-        if(len == 2){
-            if(head.val != head.next.val)
-                return false;
-            return true;
-        }
-        
-        ListNode fast = head;
-        ListNode slow = head;
-        ListNode prev = null;
-        
-        // Finding the middle node:
-        while(fast != null && fast.next != null){
-            fast = fast.next.next;
-            prev = slow;
-            slow = slow.next;
-        }
-        
-        if(len % 2 == 0){
-            // Even Case:
-            if(prev != null){
-                prev.next = null;
-            }
-            
-            ListNode firstLL = head;
-            ListNode secondLL = reverseLL(slow);
-            
-            // Check for palindrome:
-            return isPalindrome(firstLL, secondLL);
-        }
-        // Odd Case:
-        if(prev != null){
-            prev.next = null;
-        }
-        ListNode firstLL = head;
-        ListNode middleNode = slow;
-        ListNode secondLL = reverseLL(slow.next);
 
-        // Check for palindrome:
-        return isPalindrome(firstLL, secondLL);
-    }
-    public boolean isPalindrome(ListNode h1, ListNode h2){
-        ListNode t1 = h1;
-        ListNode t2 = h2;
-        while(t1 != null && t2 != null){
-            if(t1.val != t2.val){
+        // Find the middle node using two pointers
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        // Reverse the second half of the linked list using recursion
+        ListNode secondHalf = reverse(slow.next);
+        ListNode firstHalf = head;
+
+        // Compare the elements of the first half and the second half
+        while (secondHalf != null) {
+            if (firstHalf.val != secondHalf.val) {
                 return false;
             }
-            t1 = t1.next;
-            t2 = t2.next;
+            firstHalf = firstHalf.next;
+            secondHalf = secondHalf.next;
         }
+
         return true;
     }
-    public int getLength(ListNode head){
-        int c = 0;
-        ListNode temp = head;
-        while(temp != null){
-            c++;
-            temp = temp.next;
+
+    // Helper method to reverse a linked list using recursion
+    private ListNode reverse(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
         }
-        return c;
-    }
-    
-    public ListNode reverseLL(ListNode head){
-        ListNode curr = head;
-        ListNode prev = null;
-        while(curr != null){
-            ListNode nextNode = curr.next;
-            curr.next = prev;
-            prev = curr;
-            curr = nextNode;
-        }
-        return prev;
+        ListNode reversedList = reverse(head.next);
+        head.next.next = head;
+        head.next = null;
+        return reversedList;
     }
 }
