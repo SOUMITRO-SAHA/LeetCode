@@ -1,7 +1,39 @@
 ## Java :
 ​
 ```java
-​
+/**
+* Definition for singly-linked list.
+* public class ListNode {
+*     int val;
+*     ListNode next;
+*     ListNode() {}
+*     ListNode(int val) { this.val = val; }
+*     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+* }
+*/
+class Solution {
+public ListNode mergeNodes(ListNode head) {
+ListNode temp = head;
+int sum = 0;
+// Creating a dummy node:
+ListNode d = new ListNode(-1);
+ListNode ls = d;
+while(temp != null){
+if(temp.val == 0 && temp != head){
+ListNode node = new ListNode(sum);
+ls.next = node;
+ls = node;
+sum = 0;
+}
+else{
+sum += temp.val;
+}
+temp = temp.next;
+}
+// Returning the ans
+return d.next;
+}
+}
 ```
 ​
 ---
@@ -11,31 +43,3 @@
 /**
 * Definition for singly-linked list.
 * function ListNode(val, next) {
-*     this.val = (val===undefined ? 0 : val)
-*     this.next = (next===undefined ? null : next)
-* }
-*/
-/**
-* @param {ListNode} head
-* @return {ListNode}
-*/
-var mergeNodes = function(head) {
-let d = new ListNode(-1);
-let ls = d;
-let temp = head;
-let sum = 0;
-while(temp){
-if(temp.val == 0 && temp != head){
-let newNode = new ListNode(sum);
-ls.next = newNode;
-ls = newNode;
-sum = 0;
-}
-else if(temp.val != 0){
-sum += temp.val;
-}
-temp = temp.next;
-}
-return d.next;
-};
-```
