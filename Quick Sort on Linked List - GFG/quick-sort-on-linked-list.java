@@ -81,79 +81,73 @@ class Node
 // you have to complete this function
 class GfG
 {
-    public static Node quickSort(Node node){
+    public static Node quickSort(Node head)
+    {
         // Base Case:
-        if(node == null || node.next == null){
-            return node;
+        if(head == null || head.next == null){
+            return head;
         }
-
-        // Getting the left, pivot, right, left_end:
-        // Index :      0      1      2
-        Node[] res = partition(node);
-
-        // sort the Left part:
-        Node hLeft = quickSort(res[0]); // Passing the Head of Left Part:
-
-        // Sort the right part:
-        Node hRight = quickSort(res[2]); // Passing the Head of Right Part:
-
-        // The Pivot Element:
-        res[1].next = hRight;
-
-        // Getting to the end of Left LL:
-        if(hLeft == null){
+        
+        // Getting the Partition in array [left, pivot, right]
+        Node[] res = partition(head);
+        
+        // Sorting the left part:
+        Node lHead = quickSort(res[0]);
+        Node rHead = quickSort(res[2]);
+        
+        // Connecting the pivot to right part:
+        res[1].next = rHead;
+        
+        // Checking if lHead != null
+        if(lHead == null){
             return res[1];
         }
         
-        // Else if = hLeft in not null then,
-        Node temp = hLeft;
-
-        while(temp != null && temp.next != null){
+        Node temp = lHead;
+        while(temp.next != null){
             temp = temp.next;
         }
-
+        
         temp.next = res[1];
-
-        // Return Head;
-        return hLeft;
+        
+        return lHead;
     }
-
+    
     public static Node[] partition(Node head){
-
-        // Dummy Nodes:
         Node d1 = new Node(-1);
         Node d2 = new Node(-1);
         Node l1 = d1;
         Node l2 = d2;
-
+        
+        Node pivot = head;
         Node temp = head;
-
         while(temp != null){
-            if(temp != head){
-                if(temp.data <= head.data){
-                    // For Smaller Elements
+            if(temp != pivot){
+                if(temp.data <= pivot.data){
                     l1.next = temp;
                     l1 = temp;
                 }
                 else{
-                    // For Greater Elements
                     l2.next = temp;
                     l2 = temp;
                 }
             }
+            
             temp = temp.next;
         }
-
-        // Assigning the next of the last Nodes to null
+        
+        // Assigining the next of  left, pivot, right to null
         l1.next = null;
         l2.next = null;
-        if(head != null) {
-            head.next = null;
-        }
-
-        // Array containing the Node Head of the left part and Pivot and Last part:
-        // Filling the Array:
-
-        return new Node[]{d1.next, head, d2.next};
+        pivot.next = null;
+        
+        // Updating the Head nodes of dummy:
+        d1 = d1.next;
+        d2 = d2.next;
+        
+        // Returning the result:
+        return new Node[]{d1,pivot,d2};
     }
+    
+    
 }
