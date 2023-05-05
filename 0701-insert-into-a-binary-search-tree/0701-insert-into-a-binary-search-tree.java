@@ -18,9 +18,15 @@ class Solution {
         // Base Case:
         if(root == null) return new TreeNode(val);
         
-        // Recursive Call:
-        else if(root.val < val) root.right = insertIntoBST(root.right, val);
-        else if(root.val > val) root.left = insertIntoBST(root.left, val);
+        // Recursive Case:
+        if(val < root.val){
+            // Move left
+            root.left = insertIntoBST(root.left, val);
+        }
+        else{
+            // Move Right
+            root.right = insertIntoBST(root.right, val);
+        }
         
         return root;
     }
