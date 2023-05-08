@@ -1,5 +1,6 @@
 class Solution {
-    // Brute Force Approach
+    // Optimised Approach
+    // TC: O(log n), SC: (log n) => Context Stack Space. Otherwise O(1)
     public double myPow(double x, int n) {
         // Base Case:
         if(n == 0) return 1;
