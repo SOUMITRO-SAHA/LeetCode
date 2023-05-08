@@ -1,4 +1,5 @@
 class Solution {
+    // TC: O(log N); SC: O(log N)
     public boolean isPowerOfTwo(int n) {
         // Base Case:
         if(n == 2 || n == 1) return true;
