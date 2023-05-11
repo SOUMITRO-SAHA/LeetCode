@@ -36,30 +36,26 @@ class GFG {
 class Solution {
     // Function to return Breadth First Traversal of given graph.
     public ArrayList<Integer> bfsOfGraph(int V, ArrayList<ArrayList<Integer>> graph) {
-        // Creating a visited array:
-        boolean []vis = new boolean[V];
-        // Creating res 
-        ArrayList<Integer> res = new ArrayList<>();
-        
-        // Creating a Queue:
+        // BFS Traversal:
+        // Now, I am having a DAG:
+        // Perform BFS Algorithm on the DAG:
         Queue<Integer> q = new LinkedList<>();
         
-        // Adding the src vertex into the Queue:
-        q.add(0);
+        boolean []vis = new boolean[V];
+        ArrayList<Integer> res = new ArrayList<>();
         
+        // Adding src to the queue:
+        q.add(0);
         while(q.size() > 0){
-            // Front:
-            int peek = q.poll();
-            
-            // Mark Visited
-            if(vis[peek]) continue;
-            vis[peek] = true;
-            
-            // Work:
-            res.add(peek);
-            
-            // Add all the unvisited neighbours into the Queue:
-            for(int nbr: graph.get(peek)){
+            // Front
+            int front = q.poll();
+            // Mark
+            if(vis[front]) continue;
+            vis[front] = true;
+            // Work
+            res.add(front);
+            // Add all the unvisited neighbours:
+            for(int nbr: graph.get(front)){
                 if(!vis[nbr]) q.add(nbr);
             }
         }
