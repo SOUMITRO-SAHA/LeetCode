@@ -130,46 +130,71 @@ class GFG
 class Solution {
     // Helper method for performing DFS traversal
     static boolean dfsTraversal(char board[][], String word, boolean visited[][], int row, int col, int idx, int m, int n) {
+        // Base case: the entire word has been found
         if (idx == word.length())
-            return true;
-
+            return true; 
+    
         if (row >= 0 && row < m && col >= 0 && col < n && !visited[row][col] && board[row][col] == word.charAt(idx)) {
-            visited[row][col] = true;
-
+            visited[row][col] = true; // Mark the current cell as visited
+    
             // Explore all possible adjacent cells
-            if (dfsTraversal(board, word, visited, row + 1, col, idx + 1, m, n)
-                    || dfsTraversal(board, word, visited, row - 1, col, idx + 1, m, n)
-                    || dfsTraversal(board, word, visited, row + 1, col + 1, idx + 1, m, n)
-                    || dfsTraversal(board, word, visited, row - 1, col - 1, idx + 1, m, n)
-                    || dfsTraversal(board, word, visited, row, col + 1, idx + 1, m, n)
-                    || dfsTraversal(board, word, visited, row, col - 1, idx + 1, m, n)
-                    || dfsTraversal(board, word, visited, row + 1, col - 1, idx + 1, m, n)
-                    || dfsTraversal(board, word, visited, row - 1, col + 1, idx + 1, m, n)) {
+            // Move down
+            if (dfsTraversal(board, word, visited, row + 1, col, idx + 1, m, n))
                 return true;
-            }
-
-            visited[row][col] = false;
+    
+            // Move up
+            if (dfsTraversal(board, word, visited, row - 1, col, idx + 1, m, n))
+                return true;
+    
+            // Move right
+            if (dfsTraversal(board, word, visited, row, col + 1, idx + 1, m, n))
+                return true;
+                
+            // Move left
+            if (dfsTraversal(board, word, visited, row, col - 1, idx + 1, m, n))
+                return true;
+                
+            // Move diagonally down-right
+            if (dfsTraversal(board, word, visited, row + 1, col + 1, idx + 1, m, n))
+                return true;
+    
+            // Move diagonally down-left
+            if (dfsTraversal(board, word, visited, row + 1, col - 1, idx + 1, m, n))
+                return true;
+                
+            // Move diagonally up-right
+            if (dfsTraversal(board, word, visited, row - 1, col + 1, idx + 1, m, n))
+                return true;
+                
+            // Move diagonally up-left
+            if (dfsTraversal(board, word, visited, row - 1, col - 1, idx + 1, m, n))
+                return true;
+    
+            visited[row][col] = false; // Mark the current cell as unvisited (backtracking)
         }
-
-        return false;
+    
+        return false; // The word cannot be formed from the current cell
     }
 
     // Helper method to check if a word exists in the board
     static boolean wordExistsInDictionary(String word, char board[][], int m, int n) {
-        int idx = 0;
-        boolean visited[][] = new boolean[m][n];
+        int idx = 0; // Index to track the current character in the word.
+        boolean visited[][] = new boolean[m][n]; // Matrix to track visited cells on the board
 
+        // Iterating each cell on the board:
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
+                // If the current cell contains the first character of the word
                 if (board[i][j] == word.charAt(idx)) {
+                    // Check if the remaining characters of the word can be found Starting from this cell
                     if (dfsTraversal(board, word, visited, i, j, idx, m, n)) {
-                        return true;
+                        return true; // Word found, return true
                     }
                 }
             }
         }
 
-        return false;
+        return false; // Word not found in the board.
     }
 
     public String[] wordBoggle(char board[][], String[] dictionary) {
