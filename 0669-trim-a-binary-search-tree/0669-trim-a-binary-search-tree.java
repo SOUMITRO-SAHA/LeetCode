@@ -15,17 +15,28 @@
  */
 class Solution {
     public TreeNode trimBST(TreeNode root, int low, int high) {
-        // Base Case:
+        // Edge Case 
         if(root == null) return null;
         
-        // Recursive Call:
-        if(root.val > high) return trimBST(root.left, low, high);
-        if(root.val < low) return trimBST(root.right, low, high);
+        // To trim BSt => Recursive Approach:
         
-        // Left:
+        // Contion to be in the range:
+        if(root.val < low){
+            // I have to go to right:
+            return trimBST(root.right, low, high);
+        }
+        if(root.val > high){
+            // I have to go to Left:
+            return trimBST(root.left, low, high);
+        }
+        
+        
+        // Left and Right =>
         root.left = trimBST(root.left, low, high);
         root.right = trimBST(root.right, low, high);
         
+        // Return
         return root;
+        
     }
 }
