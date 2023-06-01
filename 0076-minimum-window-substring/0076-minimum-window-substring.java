@@ -1,50 +1,49 @@
 class Solution {
     public String minWindow(String s, String t) {
-        // First Creating a HashMap for t and store the frequencies of each characters:
-        HashMap<Character, Integer> fqt = new HashMap<>();
-        
-        // Taking fq for T:
-        for(char ch: t.toCharArray()){
-            fqt.put(ch, fqt.getOrDefault(ch, 0)+1);
+        // Frequency count array for characters in t:
+        int[] tCharCount = new int[128];
+
+        // Counting the occurrences of each character in t
+        for (char ch : t.toCharArray()) {
+            tCharCount[ch]++;
         }
-        
-        // getting required, desire length of characters:
-        int required = t.length();
-        int desire = 0;
-        int sp = -1, ep = 0;
-        String pans = "";
-        
-        // Second, Creating a HashMap for frequencies of the window:
-        HashMap<Character, Integer> fqw = new HashMap<>();
-        
-        while(ep < s.length()){
-            // Accuire
-            char ch = s.charAt(ep);
-            fqw.put(ch, fqw.getOrDefault(ch, 0)+1);
-            
-            // Checking for valid character to update desire
-            if(fqw.getOrDefault(ch, 0) <= fqt.getOrDefault(ch, 0)) desire++;
-            
-            // Release and update pans:
-            while(required == desire){
-                String str = s.substring(sp+1, ep+1);
-                if(pans.length() == 0 || pans.length() > str.length()){
-                    pans = str;
-                }
-                // Now, Start Releasing:
-                sp++;
-                char c = s.charAt(sp);
-                
-                // Reduce the Frequency
-                if(fqw.getOrDefault(c, 0) == 1) fqw.remove(c);
-                else fqw.put(c, fqw.get(c)-1);
-                
-                // Checking whether important people removed from the current window or not:
-                if(fqw.getOrDefault(c, 0) < fqt.getOrDefault(c, 0)) desire--;
+
+        // Pointers and variables for tracking the minimum window
+        int start = 0; // Start index of the window
+        int end = 0; // End index of the window
+        int minStart = 0; // Start index of the minimum window
+        int charCounter = t.length(); // Number of characters still needed to be found
+        int minLen = Integer.MAX_VALUE; // Length of the minimum window
+
+        // Sliding window approach
+        while (end < s.length()) {
+            char ch = s.charAt(end);
+
+            if (tCharCount[ch] > 0) {
+                charCounter--;
             }
             
-            ep++;
+            tCharCount[ch]--;
+
+            while (charCounter == 0) {
+                // Update the minimum window length and start index
+                minLen = Math.min(end - start + 1, minLen);
+                if (minLen == (end - start + 1)) {
+                    minStart = start;
+                }
+
+                char currCh = s.charAt(start);
+                tCharCount[currCh]++;
+                if (tCharCount[currCh] > 0) {
+                    charCounter++;
+                }
+
+                start++;
+            }
+            end++;
         }
-        return pans;
+
+        // Return the minimum window substring
+        return minLen == Integer.MAX_VALUE ? "" : s.substring(minStart, minStart + minLen);
     }
 }
