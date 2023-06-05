@@ -15,23 +15,23 @@
  */
 class Solution {
     private int idx = 0;
-    private TreeNode construct(int []pre, int l, int r){
+    public TreeNode bstFromPreorder(int[] preorder) {
+        return construct(preorder, Integer.MIN_VALUE, Integer.MAX_VALUE);
+        
+    }
+    TreeNode construct(int []pre, int l, int r){
         // Base Case:
         if(idx == pre.length) return null;
         if(pre[idx] < l || pre[idx] > r) return null;
         
-        // Recursive Call:
-        // Creating Node:
-        TreeNode node = new TreeNode(pre[idx]);
-        idx++;
-        // go to left:
-        node.left = construct(pre, l, node.val -1);
-        // go to right:
-        node.right = construct(pre, node.val+1, r);
+        // Creating the Root:
+        TreeNode root = new TreeNode(pre[idx++]);
         
-        return node;
-    }
-    public TreeNode bstFromPreorder(int[] preorder) {
-        return construct(preorder, Integer.MIN_VALUE, Integer.MAX_VALUE);
+        // Left Sub-Tree:
+        root.left = construct(pre, l, root.val - 1);
+        // Right Sub-Tree:
+        root.right = construct(pre, root.val+1, r);
+        
+        return root;
     }
 }
