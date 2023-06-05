@@ -1,37 +1,34 @@
 class Solution {
-    public int[] maxSlidingWindow(int[] arr, int k) {
-        int n = arr.length;
-		int []ans = new int[n-k+1];
-		int win = 0;
-
-		// Creating a Stack Using Deque:
-		// Stack: LIFO. So, addLast() & removeLast():
-		Deque<Integer> dq = new ArrayDeque<>();
-
-		// Iterating the Array:
-		for(int i=0; i<n; i++){
-			// If the Bottom Most element is out of the range of the Current Window then, remove it.
-			while(dq.size()>0 && dq.peek() <= i -k){
-				dq.removeFirst();
-			}
-			
-			int ele = arr[i]; // Getting the Current element.
-			
-			// Checking the ngeri:
-			// This will remove every elements that are smaller then current Element in the Deque:
-			while (dq.size() > 0 && ele > arr[dq.getLast()]) {
-                dq.removeLast();
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        int n = nums.length;
+        int window = 0;
+        int []res = new int[n-k+1]; // The resultent array size will be (total_ele - target_window_size +1);
+        
+        // Creating a Stack using Deque
+        Deque<Integer> dq = new LinkedList<>(); // I will take the indexs into the stack
+        
+        // Task-1: If I found any greater element then I will add it to the last
+        // and, remove all the elements that are smaller then the current element from the last
+        // Task-2: If I pass the current window size then I have to remove the element from the Stack
+        // Task-3: I have to take each greater element in the current window after I acheve the required window size.
+        for(int i=0; i<n; i++){
+            // I have to check each time whether any element into the stack is not belongs to the current window
+            while(dq.size() > 0 && dq.getFirst() <= i - k) dq.removeFirst();
+            
+            // Current element
+            int ele = nums[i];
+            
+            // Before taking the new element into the Stack I have to remove all the elements that are smaller then
+            // The current element
+            while(dq.size() > 0 && ele > nums[dq.getLast()]) dq.removeLast();
+            dq.addLast(i);
+            
+            // Now, I have to check whether I achieved the required window size:
+            if(i >= k-1){
+                res[window++] = nums[dq.getFirst()];
             }
-			
-			// Adding the Element into the Stack:
-			dq.addLast(i);
-
-			// If the Current Index if out of the range of the Window, Then add the maximum value to the resultent array:
-			if(i >= k -1){
-				ans[win++] = arr[dq.peek()];
-			}
-		}
-
-		return ans;
+        }
+        
+        return res;
     }
 }
