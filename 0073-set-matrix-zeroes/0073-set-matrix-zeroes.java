@@ -1,53 +1,38 @@
 class Solution {
-    // Brute-Force:
-    public void setZeroes(int[][] matrix) {
-        // If I encountered any cell with zero then set the whole row and column to zero 
-        // Increase left top by 1, so the changed values can be avoid to chance the whole 
-        // Matrix.
-        int row = matrix.length;
-        int col = matrix[0].length;
+    // Brute-Force Approach:
+    public void setZeroes(int[][] mat) {
+        int n = mat.length;
+        int m = mat[0].length;
+        // This array to point/marking the row and colum 
+        // that needed to up update.
+        int []r = new int[n];
+        int []c = new int[m];
         
-        // Maintaining another extra space to maintain the location/index of Zeros in the given matrix:
-        int [][]temp = new int[row][col];
-        
-        // Marking the Matrix:
-        for(int i=0; i<row; i++){
-            for(int j = 0; j<col; j++){
-                // If I found any cell with zero then I have to 
-                // Update the whole row and column
-                // Increase the i++;
-                if(matrix[i][j] == 0) temp[i][j] = 1;
-            }
-        }
-        
-        // Now, We are having the index 
-        // Based on which we can update the row and column:
-        // Iterate over the temp and updating the Matrix:
-        for(int i=0; i<row; i++){
-            for(int j = 0; j<col; j++){
-                // If I found any cell with zero then I have to 
-                // Update the whole row and column
-                // Increase the i++;
-                if(temp[i][j] == 1){
-                    // Call updateMat();
-                    updateMat(matrix, i, j);
+        for(int i=0; i<n; i++){
+            for(int j=0; j<m; j++){
+                if(mat[i][j] == 0){
+                    r[i] = c[j] = 1;
                 }
             }
         }
         
-    }
-    private void updateMat(int [][]mat, int tRow, int tCol){
-        int row = mat.length;
-        int col = mat[0].length;
-        
-        // Updating the Col:
-        for(int i=0; i<col; i++){
-            mat[tRow][i] = 0;
+        // Traversing over the []r:
+        for(int i=0; i<n; i++){
+            if(r[i] == 1) rowToZero(mat, i);
         }
-        
-        // Updating the Row:
-        for(int i=0; i<row; i++){
-            mat[i][tCol] = 0;
+        // Traversing over the []c
+        for(int i=0; i<m; i++){
+            if(c[i] == 1) colToZero(mat, i);
+        }
+    }
+    private void rowToZero(int [][]mat, int row){
+        for(int i=0; i<mat[0].length; i++){
+            mat[row][i] = 0;
+        }
+    }
+    private void colToZero(int [][]mat, int col){
+        for(int i=0; i < mat.length; i++){
+            mat[i][col] = 0;
         }
     }
 }
