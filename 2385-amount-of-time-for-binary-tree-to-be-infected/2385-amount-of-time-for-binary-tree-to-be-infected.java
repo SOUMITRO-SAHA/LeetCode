@@ -14,75 +14,76 @@
  * }
  */
 class Solution {
-    private void setParent(TreeNode root, HashMap<TreeNode, TreeNode> parent){
-        // Base Case:
-        if(root == null) return;
-        
-        // Setting the Child-> Parent:
-        if(root.left != null) parent.put(root.left, root);
-        if(root.right != null) parent.put(root.right, root);
-        
-        // Recursive Call:
-        setParent(root.left, parent);
-        setParent(root.right, parent);
-    }
-    private TreeNode find(TreeNode root, int target){
-        // Base Case:
-        if(root == null || root.val == target) 
-            return root;
-        
-        // Recursive Call:
-        TreeNode filc = find(root.left, target);
-        if(filc != null) return filc;
-        
-        TreeNode firc = find(root.right, target);
-        if(firc != null) return firc;
-        
-        return null;
-    }
     public int amountOfTime(TreeNode root, int start) {
-        // Task-1: We have to maintain a HashTable for each child -> Parent:
-        HashMap<TreeNode, TreeNode> parent = new HashMap<>();
-        setParent(root, parent);
+        // First, I have to form a map , which will store the addres of parent with it's child
+        Map<TreeNode, TreeNode> map = new HashMap<>();
+        TreeNode []snode = new TreeNode[1];
         
-        // Getting the src node:
-        TreeNode src = find(root, start);
+        // BFS Algorith to form the map and find the target node:
+        childToParent(root, snode, start,  map);
         
-        // Maintaining a Queue:
-        Queue<TreeNode> q = new ArrayDeque<>();
-        q.add(src);
+        // Now, I have to find the target node:
         
-        // Maintaining a HS for visiting Node:
-        HashSet<TreeNode> vis = new HashSet<>();
-        vis.add(src);
+        // Now, I have to Traverse levelwise:
+        int lvl = 0;
+        Queue<TreeNode> q = new LinkedList<>();
+        // Adding the target node to the queue
+        q.add(snode[0]);
         
-        // Maintaining the Level:
-        int level = 0;
-        while(q.size() != 0){
+        // Maintaining a visited nodes Set
+        Set<TreeNode> vis = new HashSet<>();
+        // Adding the target node to the set:
+        vis.add(snode[0]);
+        
+        while(q.size() > 0){
+            // Size:
             int size = q.size();
+            // Visit it's childrens:
             while(size-->0){
-                TreeNode rnode = q.poll();
-                
-                // Case-1: For Left Child
-                if(rnode.left != null && !vis.contains(rnode.left)){
-                    q.add(rnode.left);
-                    vis.add(rnode.left);
-                }
-                // Case-2: For Right Child
-                if(rnode.right != null && !vis.contains(rnode.right)){
-                    q.add(rnode.right);
-                    vis.add(rnode.right);
-                }
-                // Case-3: For Parent
-                if(parent.containsKey(rnode)&& !vis.contains(parent.get(rnode))){
-                    q.add(parent.get(rnode));
-                    vis.add(parent.get(rnode));
+                // Front
+                TreeNode node = q.poll();
+                if(node.left != null  && !vis.contains(node.left)){
+                    q.add(node.left);
+                    vis.add(node.left);
+                } 
+                if(node.right != null  && !vis.contains(node.right)){
+                    q.add(node.right);
+                    vis.add(node.right);
+                } 
+                if(map.containsKey(node) && !vis.contains(map.get(node))) {
+                    q.add(map.get(node));
+                    vis.add(map.get(node));
                 }
             }
-            level++;
+            
+            // Work
+            lvl++;
         }
         
-        // Returning the Result:
-        return level -1;
+        return lvl -1;
     }
+    private void childToParent (TreeNode root, TreeNode []snode, 
+                                int target, Map<TreeNode, TreeNode> map){
+        Queue<TreeNode> q = new LinkedList<>();
+        // Adding the root node:
+        q.add(root);
+        
+        while(q.size() > 0){
+            // Front
+            TreeNode node = q.poll();
+            
+            // work
+            if(node.val == target) snode[0] = node;
+            // Go to it's childs
+            if(node.left != null){
+                map.put(node.left, node);
+                q.add(node.left);
+            }
+            if(node.right != null){
+                map.put(node.right, node);
+                q.add(node.right);
+            }
+        }
+    }
+    
 }
