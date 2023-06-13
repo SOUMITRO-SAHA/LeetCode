@@ -1,0 +1,35 @@
+# Sum of two large numbers
+## Medium
+<div class="problems_problem_content__Xm_eO"><p><span style="font-size:18px">Given two strings denoting non-negative numbers X and Y. Calculate the sum of X and Y. </span></p>
+
+<p><br>
+<span style="font-size:18px"><strong>Example 1:</strong></span></p>
+
+<div class="pieces-code-wrapper" style="text-align: left; margin-top: 10px;"><pre style="margin-bottom: 0px; margin-top: 0px;"><span style="font-size:18px"><strong>Input:</strong>
+X = "25", Y = "23"
+<strong>Output:</strong>
+48
+<strong>Explanation:</strong>
+The sum of 25 and 23 is 48.</span></pre><div class="pieces-btn-wrapper" style="border: none; display: flex; opacity: 0; width: auto; transition: opacity 0.3s ease-out 0s; height: 26px; margin-top: 10px; margin-bottom: 10px; --darkreader-inline-border-top: initial; --darkreader-inline-border-right: initial; --darkreader-inline-border-bottom: initial; --darkreader-inline-border-left: initial;" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left=""><button class="pieces-btn pieces-copy-and-save" style="width: auto; font-size: 12px; border: 1px solid rgb(33, 33, 33); border-radius: 16px; margin-right: 4px; padding: 4px 6px 4px 4px; line-height: normal; height: fit-content; cursor: pointer; user-select: none; display: flex; align-items: center; background-color: rgb(33, 33, 33); color: rgb(255, 255, 255); --darkreader-inline-border-top: #817664; --darkreader-inline-border-right: #817664; --darkreader-inline-border-bottom: #817664; --darkreader-inline-border-left: #817664; --darkreader-inline-bgcolor: #000000; --darkreader-inline-color: #ffffff;" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left="" data-darkreader-inline-bgcolor="" data-darkreader-inline-color=""><img src="https://storage.googleapis.com/pieces-web-extensions-cdn/pieces.png" class="pieces-logo" style="margin: 0px 4px 0px 0px; border-radius: 50%; filter: none; float: left; width: 16px; height: 16px;"><span class="pieces-btn-text">Copy and Save</span></button><button class="pieces-btn pieces-share" style="width: auto; font-size: 12px; border: 1px solid rgb(33, 33, 33); border-radius: 16px; margin-right: 4px; padding: 4px 6px 4px 4px; line-height: normal; height: fit-content; cursor: pointer; user-select: none; display: flex; align-items: center; background-color: rgb(33, 33, 33); color: rgb(255, 255, 255); --darkreader-inline-border-top: #817664; --darkreader-inline-border-right: #817664; --darkreader-inline-border-bottom: #817664; --darkreader-inline-border-left: #817664; --darkreader-inline-bgcolor: #000000; --darkreader-inline-color: #ffffff;" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left="" data-darkreader-inline-bgcolor="" data-darkreader-inline-color=""><img src="https://storage.googleapis.com/pieces-web-extensions-cdn/link.png" class="pieces-logo" style="margin: 0px 4px 0px 0px; border-radius: 50%; filter: none; float: left; width: 16px; height: 16px;"><span class="pieces-btn-text">Share</span></button></div></div>
+
+<p><span style="font-size:18px"><strong>Example 2:</strong></span></p>
+
+<div class="pieces-code-wrapper" style="text-align: left; margin-top: 10px;"><pre style="margin-bottom: 0px; margin-top: 0px;"><span style="font-size:18px"><strong>Input:</strong>
+X = "2500", Y = "23"
+<strong>Output:</strong>
+2523
+<strong>Explanation:</strong>
+The sum of 2500 and 23 is 2523.</span></pre><div class="pieces-btn-wrapper" style="border: none; display: flex; opacity: 0; width: auto; transition: opacity 0.3s ease-out 0s; height: 26px; margin-top: 10px; margin-bottom: 10px; --darkreader-inline-border-top: initial; --darkreader-inline-border-right: initial; --darkreader-inline-border-bottom: initial; --darkreader-inline-border-left: initial;" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left=""><button class="pieces-btn pieces-copy-and-save" style="width: auto; font-size: 12px; border: 1px solid rgb(33, 33, 33); border-radius: 16px; margin-right: 4px; padding: 4px 6px 4px 4px; line-height: normal; height: fit-content; cursor: pointer; user-select: none; display: flex; align-items: center; background-color: rgb(33, 33, 33); color: rgb(255, 255, 255); --darkreader-inline-border-top: #817664; --darkreader-inline-border-right: #817664; --darkreader-inline-border-bottom: #817664; --darkreader-inline-border-left: #817664; --darkreader-inline-bgcolor: #000000; --darkreader-inline-color: #ffffff;" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left="" data-darkreader-inline-bgcolor="" data-darkreader-inline-color=""><img src="https://storage.googleapis.com/pieces-web-extensions-cdn/pieces.png" class="pieces-logo" style="margin: 0px 4px 0px 0px; border-radius: 50%; filter: none; float: left; width: 16px; height: 16px;"><span class="pieces-btn-text">Copy and Save</span></button><button class="pieces-btn pieces-share" style="width: auto; font-size: 12px; border: 1px solid rgb(33, 33, 33); border-radius: 16px; margin-right: 4px; padding: 4px 6px 4px 4px; line-height: normal; height: fit-content; cursor: pointer; user-select: none; display: flex; align-items: center; background-color: rgb(33, 33, 33); color: rgb(255, 255, 255); --darkreader-inline-border-top: #817664; --darkreader-inline-border-right: #817664; --darkreader-inline-border-bottom: #817664; --darkreader-inline-border-left: #817664; --darkreader-inline-bgcolor: #000000; --darkreader-inline-color: #ffffff;" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left="" data-darkreader-inline-bgcolor="" data-darkreader-inline-color=""><img src="https://storage.googleapis.com/pieces-web-extensions-cdn/link.png" class="pieces-logo" style="margin: 0px 4px 0px 0px; border-radius: 50%; filter: none; float: left; width: 16px; height: 16px;"><span class="pieces-btn-text">Share</span></button></div></div>
+
+<p><br>
+<span style="font-size:18px"><strong>Your Task:</strong><br>
+Your task is to complete the function <strong>findSum()&nbsp;</strong>which takes two strings as inputs and returns the string without leading zeros. You do not need to take any input or print anything.</span></p>
+
+<p><br>
+<span style="font-size:18px"><strong>Expected Time Complexity:&nbsp;</strong>O(|X| + |Y|)<br>
+<strong>Expected Auxiliary Space:&nbsp;</strong>O(1)</span></p>
+
+<p><br>
+<span style="font-size:18px"><strong>Constraints:</strong><br>
+1 &lt;= |X|, |Y| &lt;= 10<sup>5</sup></span></p>
+</div>
