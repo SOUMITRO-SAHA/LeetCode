@@ -1,22 +1,23 @@
 class Solution {
-    // Optimum Approach:
-    // TC: O(n)
-    // SC: O(1)
-    public int maxSubArray(int[] nums) {
+    public int maxSubArray(int[] n) {
         // Kadane's Algorithm:
+        int train = 0;
         int max = Integer.MIN_VALUE;
-        int sum = 0;
         
-        // Finding the Max subarray sum:
-        for(int el : nums){
-            sum += el;
-            max = Math.max(sum, max);
-            if(sum < 0){
-                // -Ve Case Not required
-                sum = 0;
-            }
+        for(int i=0; i<n.length; i++){
+            // If n[i] site's inthe previous train
+            int prev = train + n[i];
+            
+            // If n[i] will starts it's own train
+            int newTrain = n[i];
+            
+            // So, finally the current train will be
+            train = Math.max(prev, newTrain);
+            
+            // And, the max of the sub-array will be
+            max = Math.max(max, train);
         }
-
+        
         return max;
     }
 }
