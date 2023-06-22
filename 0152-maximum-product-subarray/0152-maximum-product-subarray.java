@@ -1,18 +1,22 @@
 class Solution {
-    // Brute-Force Approach:
-    // TC: O(n^2), SC: O(1)
+    // Optimal Approach:
+    // TC: O(n), SC: O(1)
     public int maxProduct(int[] nums) {
-        int p = Integer.MIN_VALUE;
+        int max_so_far = nums[0];
+        int min_so_far = nums[0];
+        int ans = max_so_far;
         
-        for(int i = 0; i<nums.length; i++){
-            int currP = nums[i];
-            p = Math.max(p, currP);
-            for(int j=i+1; j<nums.length; j++){
-                currP *= nums[j];
-                p = Math.max(p, currP);
-            }
+        for(int i=1; i<nums.length; i++){
+            int ele = nums[i];
             
+            int temp_max = Math.max(ele, Math.max(max_so_far * ele, min_so_far * ele));
+            min_so_far = Math.min(ele, Math.min(max_so_far * ele, min_so_far * ele));
+            
+            max_so_far = temp_max;
+            
+            ans = Math.max(max_so_far, ans);
         }
-        return p;
+        
+        return ans;
     }
 }
