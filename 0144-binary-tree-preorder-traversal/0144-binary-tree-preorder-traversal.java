@@ -14,24 +14,46 @@
  * }
  */
 class Solution {
+    // Morris Traversal:
+    // TC: O(N) => (As each node will only visit 3 Time .) => O(3 * N) ~ O(N)
     public List<Integer> preorderTraversal(TreeNode root) {
-        List<Integer> res = new ArrayList<>();
-        preOT(root,res);
+        TreeNode curr = root;
+        List<Integer> pre = new ArrayList<>();
         
-        return res;
-    }
-    // TC: O(n);
-    // SC: O(n)
-    void preOT(TreeNode root, List<Integer> res){
-        // Base Case:
-        if(root == null) return;
+        while(curr != null){
+            if(curr.left == null){
+                // Special condition
+                pre.add(curr.val);
+                // If It was in-order then add here.
+                curr = curr.right;
+            }
+            else {
+                // I have to detect if I am begin visited for the first time or second time
+                // If link is not present => Then First Time
+                // Else Second Time.
+                // I have to detect whether there is a link or not
+                TreeNode rmn = curr.left;
+                while(rmn.right != null && rmn.right != curr){
+                    rmn = rmn.right;
+                }
+                
+                // if the rmn.right == curr, link was there
+                if(rmn.right == curr){
+                    // Second time as link was there
+                    // If It was in-order then add here.
+                    rmn.right = null; // demolishing the link
+                    curr = curr.right; // going to the right subtree
+                }
+                // Link wasn't there
+                else{
+                    // If link was not there, then establish a link
+                    pre.add(curr.val); // preorder work
+                    rmn.right = curr; //establishing the link
+                    curr = curr.left; // going to the left subtree
+                }
+            }
+        }
         
-        // Adding the root value to the List:
-        res.add(root.val);
-        
-        // Calling the Left Sub Tree:
-        preOT(root.left, res);
-        // Calling the Right Sub Tree:
-        preOT(root.right, res);
+        return pre;
     }
 }
