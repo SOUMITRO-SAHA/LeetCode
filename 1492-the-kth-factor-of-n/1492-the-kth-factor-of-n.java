@@ -1,16 +1,18 @@
 class Solution {
     // Brute-Force:
-    // TC: O(n), SC: O(m)
+    // TC: O(n)
     public int kthFactor(int n, int k) {
-        List<Integer> res = new ArrayList<>();
+        int kFact = 0; // Maintaining a Counter.
         
-        // Taking all the factores into the ArrayList:
+        // Iterate till n: And try to find the k'th Factor.
         for(int i=1; i<=n; i++){
-            if(n%i == 0) res.add(i);
+            if(n%i == 0){
+                kFact++;
+            }
+            // Checking for K'th Factor:
+            if(kFact == k) return i;
         }
             
-        // Outputing the K'th Factor form the ArrayList:
-        if(res.size() >= k) return res.get(k-1);
         return -1;
     }
 }
