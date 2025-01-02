@@ -4,7 +4,6 @@
  */
 var hasGroupsSizeX = function (deck) {
   const map = new Map();
-  let min = Infinity;
 
   for (let i = 0; i < deck.length; i++) {
     const ele = deck[i];
@@ -17,22 +16,12 @@ var hasGroupsSizeX = function (deck) {
     }
   }
 
-  for (const [key, val] of map) {
-    if (val < min) min = val;
-  }
-
-  // Now Iterate over the HashMap to find the gcd
-  let gcdValue = min;
-
+  let gcdValue = 0;
   for (const [key, val] of map) {
     gcdValue = gcd(gcdValue, val);
   }
 
-  if (gcdValue > 1 && gcdValue > 1) {
-    return true;
-  }
-
-  return false;
+  return gcdValue > 1;
 };
 
 function gcd(a, b) {
